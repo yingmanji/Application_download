@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <paths>
-    <external-files-path
-    name="apk"
-    path="Download/apk/"
-    />
+    <files-path name="my_images" path="" />
+    <cache-path name="name" path="" />
+    <external-path name="name" path="" />
+    <external-files-path name="name" path="" />
+    <external-cache-path name="name" path="" />
+    <root-path name="image" path="" />
 </paths>

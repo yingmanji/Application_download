@@ -68,7 +68,7 @@ public class NotificationService extends IntentService {
             System.out.println("文件夹存在");
             dirs.mkdir();
         }
-        qqFile = new File(dirs,"/qq.apk");
+        qqFile = new File(dirs,"/QQ_676.apk");
         System.out.println(qqFile.getPath());
         //设置通知栏
         setNotification();
@@ -77,9 +77,10 @@ public class NotificationService extends IntentService {
         //移除通知栏
         notificationManager.cancel(0);
         // 广播出去，由广播接收器来处理下载完成的文件
-        Intent sendIntent = new Intent("com.example.administrator.application_download");
+        Intent sendIntent = new Intent("com.example.administrator.myapplication");
         // 把下载好的文件的保存地址加进Intent
         sendIntent.putExtra("downloadFile", qqFile.getPath());
+        System.out.println("#qqFile.getPath()"+qqFile.getPath());
         sendBroadcast(sendIntent);
     }
 

@@ -43,14 +43,14 @@ public class DownloadServiceActivity extends AppCompatActivity {
                 new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE},
                 1);
         System.out.println(ContextCompat.checkSelfPermission(this,Manifest.permission.WRITE_EXTERNAL_STORAGE)==PackageManager.PERMISSION_GRANTED);
-        String downloadUrl="http://gdown.baidu.com/data/wisegame/0852f6d39ee2e213/QQ_676.apk";//下载链接
+        final String downloadUrl="http://gdown.baidu.com/data/wisegame/0852f6d39ee2e213/QQ_676.apk";//下载链接
         Intent intent=new Intent(this, NotificationService.class);
         Bundle bundle = new Bundle();
         bundle.putString("downloadUrl", downloadUrl);
         intent.putExtras(bundle);
         startService(intent);
         // 设置广播接收器，当新版本的apk下载完成后自动弹出安装界面
-        intentFilter = new IntentFilter("com.test.downloadComplete");
+        intentFilter = new IntentFilter("com.example.administrator.myapplication");
         receiver = new BroadcastReceiver() {
 
             public void onReceive(Context context, Intent intent) {
@@ -61,11 +61,12 @@ public class DownloadServiceActivity extends AppCompatActivity {
                     install.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(install);*/
                     Log.e("OpenFile", intent.getStringExtra("downloadFile"));
+                    //System.out.println("#df"+intent.getStringExtra("downloadFile"));
                     Intent sendIntent = new Intent();
                     Uri uri;
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {//7.0启动姿势<pre name="code" class="html">    //com.xxx.xxx.fileprovider为上述manifest中provider所配置相同；apkFile为问题1中的外部存储apk文件
                         uri = FileProvider.getUriForFile(context, "com.example.administrator.application_download.fileprovider", new File(intent.getStringExtra("downloadFile")));
-                        intent.setAction(Intent.ACTION_INSTALL_PACKAGE);
+                        intent.setAction(Intent.ACTION_VIEW);
                         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
                         sendIntent.setDataAndType(uri,"application/vnd.android.package-archive");
                         startActivity(intent);
